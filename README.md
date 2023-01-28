@@ -1,14 +1,17 @@
 {
+    public AudioSource DashSound;
+    public AudioSource JumpSound;
+
     private float horizontal;
-    private float speed = 15f;
-    private float jumpingPower = 15f;
+    private float speed = 8f;
+    private float jumpingPower = 16f;
     private bool isFacingRight = true;
 
     private bool canDash = true;
     private bool isDashing;
-    private float dashingPower = 40f;
+    private float dashingPower = 24f;
     private float dashingTime = 0.2f;
-    private float dashingCooldown = 0.2f;
+    private float dashingCooldown = 1f;
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
@@ -26,6 +29,7 @@
 
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
+            DashSound.Play();
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
         }
 
@@ -36,6 +40,7 @@
 
         if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
         {
+            DashSound.Play();
             StartCoroutine(Dash());
         }
 
